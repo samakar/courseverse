@@ -39,4 +39,7 @@ SampleApp::Application.configure do
   silence_warnings do
     BCrypt::Engine::DEFAULT_COST = BCrypt::Engine::MIN_COST
   end
+
+
 end
+  SITE_URL = "localhost:3000"

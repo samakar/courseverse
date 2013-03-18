@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
   has_secure_password
+  has_many :reviews, dependent: :destroy
+  
   has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
@@ -11,9 +13,11 @@ class User < ActiveRecord::Base
 
   before_save { email.downcase! }
   before_save :create_remember_token
+  before_create :create_activation_token
 
   validates :name,  presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.edu$/i          # old /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }
@@ -34,10 +38,29 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
     relationships.find_by_followed_id(other_user.id).destroy
   end
+  
+  def activate!
+    self.activation_token = ''
+    self.save
+  end
+ 
+  # Returns true if the user has been activated.
+  def activated?
+    self.activation_token.empty?
+  end
 
+  def student?
+    self.role == 1
+  end
+  
   private
 
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
     end
+
+    def create_activation_token
+      self.activation_token = SecureRandom.urlsafe_base64
+    end
+
 end

@@ -3,8 +3,7 @@ require 'spec_helper'
 describe User do
 
   before do
-    @user = User.new(name: "Example User", email: "user@example.com", 
-                     password: "foobar", password_confirmation: "foobar")
+    @user = FactoryGirl.build(:user)
   end
 
   subject { @user }
@@ -17,6 +16,10 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:role) }
+  it { should respond_to(:activation_token) }
+  it { should respond_to(:reviews) }
+  
   it { should respond_to(:microposts) }
   it { should respond_to(:feed) }
   it { should respond_to(:relationships) }
@@ -29,6 +32,16 @@ describe User do
 
   it { should be_valid }
   it { should_not be_admin }
+
+  describe "when saved" do
+    before { @user.save }
+    its(:activation_token) { should_not be_blank }
+  end 
+  
+  describe "when activated" do
+    before { @user.save; @user.activate! }
+    it {@user.activated?.should be_true}
+  end    
 
   describe "accessible attributes" do
     it "should not allow access to admin" do
@@ -64,7 +77,7 @@ describe User do
 
   describe "when email format is invalid" do
     it "should be invalid" do
-      addresses = %w[user@foo,com user_at_foo.org example.user@foo.]
+      addresses = %w[user@foo,edu user_at_foo.org example.user@foo. user@example.com]
       addresses.each do |invalid_address|
         @user.email = invalid_address
         @user.should_not be_valid
@@ -74,7 +87,7 @@ describe User do
 
   describe "when email format is valid" do
     it "should be valid" do
-      addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
+      addresses = %w[user@foo.edu A_US-ER@f.b.edu frst.lst@foo.edu a+b@baz.edu]
       addresses.each do |valid_address|
         @user.email = valid_address
         @user.should be_valid
@@ -84,16 +97,16 @@ describe User do
 
   describe "when email address is already taken" do
     before do
-      user_with_same_email = @user.dup
-      user_with_same_email.email = @user.email.upcase
-      user_with_same_email.save
+      @user_with_same_email = @user.dup
+      #user_with_same_email.email.upcase!
+      @user_with_same_email.save
     end
-
+    
     it { should_not be_valid }
   end
 
   describe "email address with mixed case" do
-    let(:mixed_case_email) { "Foo@ExAMPle.CoM" }
+    let(:mixed_case_email) { "Foo@ExAMPle.EdU" }
 
     it "should be saved as all lower-case" do
       @user.email = mixed_case_email
@@ -143,6 +156,31 @@ describe User do
     its(:remember_token) { should_not be_blank }
   end
 
+
+  describe "review associations" do
+
+    before { @user.save }
+    let!(:older_review) do 
+      FactoryGirl.create(:review, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_review) do
+      FactoryGirl.create(:review, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right reviews in the right order" do
+      @user.reviews.should == [newer_review, older_review]
+    end
+  
+    it "should destroy associated reviews" do
+      reviews_list = @user.reviews.dup
+      @user.destroy
+      reviews_list.should_not be_empty
+      reviews_list.each do |review|
+        Review.find_by_id(review.id).should be_nil
+      end
+    end
+  end  
+  # not used currenty
 
   describe "micropost associations" do
 

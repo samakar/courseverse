@@ -10,19 +10,38 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @reviews = @user.reviews.paginate(page: params[:page])
     @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def new
     @user = User.new
   end
+  
+  def activate
+    sign_out
+    @user = User.find(:first, :conditions => {:activation_token => params[:activation_token]}) unless params[:activation_token].blank?
+    case
+      when (!params[:activation_token].blank?) && @user && !@user.activated?
+        @user.activate!
+        sign_in @user
+        flash[:success] = "Account Activated."
+        redirect_to @user
+      when params[:activation_token].blank?
+        flash[:error] = "The activation code was missing. Please follow the URL from your email."
+        redirect_back_or('/')
+      else
+        flash[:error] = "We couldn't find a user with that activation code -- check your email? Or maybe you've already activated -- try signing in."
+        redirect_back_or('/')
+    end
+  end
 
   def create
     @user = User.new(params[:user])
     if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      flash[:success] = "Thank you for signing up! Please check your email for activation link."
+      UserMailer.activation_email(@user).deliver
+      redirect_to signin_url
     else
       render 'new'
     end

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308215846) do
+ActiveRecord::Schema.define(:version => 20130318152811) do
+
+  create_table "courses", :force => true do |t|
+    t.string   "title"
+    t.string   "code"
+    t.integer  "college_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "courses", ["college_id", "title"], :name => "index_courses_on_college_id_and_title"
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
@@ -33,17 +43,49 @@ ActiveRecord::Schema.define(:version => 20120308215846) do
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
+  create_table "reviews", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "schedule_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "reviews", ["schedule_id", "created_at"], :name => "index_reviews_on_schedule_id_and_created_at"
+  add_index "reviews", ["user_id", "created_at"], :name => "index_reviews_on_user_id_and_created_at"
+
+  create_table "schedules", :force => true do |t|
+    t.integer  "year"
+    t.integer  "semester"
+    t.integer  "course_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "schedules", ["course_id"], :name => "index_schedules_on_course_id"
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin",            :default => false
+    t.string   "activation_token"
+    t.integer  "role"
   end
 
+  add_index "users", ["activation_token"], :name => "index_users_on_activation_token"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "verses", :force => true do |t|
+    t.string   "content"
+    t.integer  "topic_id"
+    t.integer  "review_id"
+    t.integer  "score"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

@@ -5,28 +5,34 @@ describe "Static pages" do
   subject { page }
 
   describe "Home page" do
-    before { visit root_path }
 
-    it { should have_selector('h1',    text: 'Sample App') }
-    it { should have_selector('title', text: full_title('')) }
-    it { should_not have_selector 'title', text: '| Home' }
+    context "user not signed in" do
+      before { visit root_path }
+      it { should have_selector('h1',    text: 'Welcome to CourseVerse') }
+      it { should have_selector('title', text: full_title('')) }
+      it { should_not have_selector 'title', text: '| Home' }
+    end
 
-    describe "for signed-in users" do
-      let(:user) { FactoryGirl.create(:user) }
-      before do
-        FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
-        FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
-        sign_in user
+    context "user signed in" do
+      before do 
+        @user = FactoryGirl.create(:user) 
+        @user.activate!
+        @c1 = FactoryGirl.create(:course)
+        @c2 = FactoryGirl.create(:course)
+        s2 = FactoryGirl.create(:schedule, course: @c2)
+        6.times { FactoryGirl.create(:review, schedule: s2) }
+        sign_in @user
         visit root_path
       end
-
-      it "should render the user's feed" do
-        user.feed.each do |item|
-          page.should have_selector("li##{item.id}", text: item.content)
-        end
+      
+      describe "page content" do
+        it { should have_content("Course List (2)") }
+        it { should have_content("Number of Reviews (6)") }
+        it { should have_content(@c1.title) }
+        it { should have_content(@c2.title) }
       end
 
-      describe "follower/following counts" do
+      pending "follower/following counts" do
         let(:other_user) { FactoryGirl.create(:user) }
         before do
           other_user.follow!(user)
@@ -71,7 +77,7 @@ describe "Static pages" do
     click_link "Home"
     click_link "Sign up now!"
     page.should have_selector 'title', text: full_title('Sign up')
-    click_link "sample app"
-    page.should have_selector 'h1', text: 'Sample App'
+    click_link "CourseVerse"
+    page.should have_selector 'h1', text: 'CourseVerse'
   end
 end

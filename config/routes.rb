@@ -10,6 +10,7 @@ SampleApp::Application.routes.draw do
       
   root to: 'static_pages#home'
 
+  match '/users/:activation_token/activate', to: 'users#activate' , :as => :activate_user
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

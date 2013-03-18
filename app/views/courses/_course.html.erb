@@ -1,0 +1,12 @@
+<li>
+  <span class="content"><%= course.title %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(course.created_at) %> ago.
+    Number of Reviews (<%= Course.find_by_id(course.id).reviews_count %>)
+  </span>
+  <% if current_user.admin? %>
+    <%= link_to "delete", course, method: :delete,
+                                     data: { confirm: 'You sure?' },
+                                     title: course.content %>
+  <% end %>
+</li>

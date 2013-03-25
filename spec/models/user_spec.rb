@@ -19,6 +19,7 @@ describe User do
   it { should respond_to(:role) }
   it { should respond_to(:activation_token) }
   it { should respond_to(:reviews) }
+  it { should respond_to(:verses) }
   
   it { should respond_to(:microposts) }
   it { should respond_to(:feed) }
@@ -157,28 +158,39 @@ describe User do
   end
 
 
-  describe "review associations" do
+  describe "review & verse & vote associations" do
 
     before { @user.save }
-    let!(:older_review) do 
-      FactoryGirl.create(:review, user: @user, created_at: 1.day.ago)
-    end
-    let!(:newer_review) do
-      FactoryGirl.create(:review, user: @user, created_at: 1.hour.ago)
-    end
-
-    it "should have the right reviews in the right order" do
-      @user.reviews.should == [newer_review, older_review]
-    end
-  
-    it "should destroy associated reviews" do
-      reviews_list = @user.reviews.dup
-      @user.destroy
-      reviews_list.should_not be_empty
-      reviews_list.each do |review|
-        Review.find_by_id(review.id).should be_nil
+    let!(:older_review) {FactoryGirl.create(:review, user: @user, created_at: 1.day.ago)}
+    let!(:newer_review) {FactoryGirl.create(:review, user: @user, created_at: 1.hour.ago)}
+    
+    describe "review associations" do  
+      it "should have the right reviews in the right order" do
+        @user.reviews.should == [newer_review, older_review]
+      end
+    
+      it "should destroy associated reviews" do
+        reviews_list = @user.reviews.dup
+        @user.destroy
+        reviews_list.should_not be_empty
+        reviews_list.each do |review|
+          Review.find_by_id(review.id).should be_nil
+        end
       end
     end
+
+    describe "verse & vote associations" do
+      before do
+        v1 = FactoryGirl.create(:verse, review: older_review)
+        v2 = FactoryGirl.create(:verse, review: newer_review)
+        @user.votes.create(verse_id: v1.id)
+      end  
+      
+      it "should have the right number of verses" do
+        @user.verses.all.count.should == 1
+      end
+    end
+
   end  
   # not used currenty
 

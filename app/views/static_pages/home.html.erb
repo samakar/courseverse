@@ -4,22 +4,23 @@
       <section>
         <%= render 'shared/user_info' %>
       </section>
-      <section>
+      <!-- section>
         <%= render 'shared/stats' %>
-      </section>
+      </section -->
       <section>
-        <%= render 'shared/micropost_form' %>
+        <%= render 'shared/input_form' %>
       </section>
     </aside>
     <div class="span8">
-      <% if @course_count>0 %>
-        <h3>Babson College Course List (<%= @course_count %>)</h3>
+      <% if @course_count == 0 %>
+        <h3>Babson College Course List</h3>
+        <p>List Is Empty.</p>
+      <% else %>
+        <h3>Babson College <span class="timestamp"> - <%= @course_count %> courses </span></h3>
         <ol class="microposts">
           <%= render @courses %>
         </ol>
         <%= will_paginate @courses %>
-      <% else %>
-        <h3>Babson College Course List Is Empty</h3>
       <% end %>    
     </div>
     <!-- div class="span8">

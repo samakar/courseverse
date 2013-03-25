@@ -1,0 +1,24 @@
+<%= form_for setup_course(@course) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+	  <%= f.text_field :title %>
+	  
+	  <%= f.fields_for :schedules do |ff| %>
+
+	    <%= ff.select :semester, [['Spring', 1], ['Summer', 2], ['Fall', 3], ['Winter', 4]] ,
+	    selected: ['Fall', 3] %>
+	    <%= ff.label 'year' %>:
+	    <%= ff.select :year, [2011,2012,2013,2014] %>
+	  <% end %>
+	  
+	  <br/> 
+	 
+	  <% (1..4).each do |index| %>
+        <% f.fields_for :verse do |ff| %>
+	      <%= ff.text_area :content, placeholder: "Compose new micropost #{index}..." %>
+	      <%= hidden_field_tag 'topic_id', index %>
+        <% end %>
+      <% end %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+<% end %>

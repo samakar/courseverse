@@ -11,6 +11,8 @@ describe Verse do
   it { should respond_to(:topic_id) }
   it { should respond_to(:review_id) }
   it { should respond_to(:review) }
+  it { should respond_to(:users) }
+  it { should respond_to(:votes) }
   its(:review) { should == review }
 
   it { should be_valid }

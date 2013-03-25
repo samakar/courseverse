@@ -1,12 +1,13 @@
 <li>
-  <span class="content"><%= course.title %></span>
+  <span class="content"><%= link_to course.title, course %></span>
   <span class="timestamp">
-    Posted <%= time_ago_in_words(course.created_at) %> ago.
-    Number of Reviews (<%= Course.find_by_id(course.id).reviews_count %>)
+    Created <%= time_ago_in_words(course.created_at) %> ago.
+    <%=pluralize(course.reviews_count, "review")%> for 
+    <%=pluralize(course.schedules.count, "session")%>
   </span>
   <% if current_user.admin? %>
     <%= link_to "delete", course, method: :delete,
                                      data: { confirm: 'You sure?' },
-                                     title: course.content %>
+                                     title: course.title %>
   <% end %>
 </li>

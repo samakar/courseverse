@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @reviews = @user.reviews.paginate(page: params[:page])
     @microposts = @user.microposts.paginate(page: params[:page])
+    @course = Course.new
   end
 
   def new

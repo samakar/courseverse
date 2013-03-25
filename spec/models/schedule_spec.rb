@@ -38,4 +38,14 @@ describe Schedule do
     before { schedule.semester = 0 }
     it { should_not be_valid }
   end
+
+  describe "total reviews" do
+    before do
+      user = FactoryGirl.create(:user)
+      schedule.save
+      5.times { schedule.reviews.create(user_id: user.id) }
+    end
+    it {schedule.should have(5).reviews}     # works with reviews.create & build
+    it {schedule.reviews.count.should == 5}  # only works with reviews.create
+  end
 end

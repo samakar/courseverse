@@ -1,0 +1,27 @@
+<% provide(:title, @course.title) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= render 'shared/user_info' %>
+    </section>
+    <section>
+      <%= render 'shared/input_form' %>
+    </section>
+  </aside>
+  
+    <div class="span8">
+      <% if @course.reviews.count>0 %>
+        <h3><%= @course.title %> <span class="timestamp"> - <%= pluralize( @course.reviews.count,      "review") %> </span></h3>
+        <% if @top_reviewer[:likes] > 0 %>
+          <small>Top Reviewer: <%= @top_reviewer[:name] %> - <%= @top_reviewer[:likes] %> likes</small>
+        <% end %>
+        <ol class="microposts">
+          <%= render @reviews %>
+        </ol>
+        <%= will_paginate @reviews %>
+      <% else %>
+        <h3>Course Reviews</h3>
+        <p> No reviews. </p>
+      <% end %>
+    </div>
+</div>

@@ -240,7 +240,20 @@ input {
 
 aside {
   textarea {
-    height: 100px;
+    height: 50px;
     margin-bottom: 5px;
   }
+  select {
+    height: 30px;
+    padding: 2px;
+    width: 28%;
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+  input[type="text"]#professor {
+    height: 30px;
+    width: 40%;
+    margin-bottom: 5px;
+  }
+
 }

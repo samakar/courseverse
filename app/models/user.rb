@@ -2,7 +2,9 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
   has_secure_password
   has_many :reviews, dependent: :destroy
-  
+  has_many :votes, dependent: :destroy
+  has_many :verses, :through => :votes
+
   has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
@@ -52,7 +54,7 @@ class User < ActiveRecord::Base
   def student?
     self.role == 1
   end
-  
+
   private
 
     def create_remember_token

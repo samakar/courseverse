@@ -8,4 +8,6 @@ class Schedule < ActiveRecord::Base
     :numericality => { greater_than: 0, less_than_or_equal_to: 4 }
   validates :year, presence: true, 
     :numericality => { greater_than: 2010, less_than_or_equal_to: (Date.today.year) + 1 }
+  # composite key  
+  validates_uniqueness_of :course_id, :scope => [:semester, :year] 
 end

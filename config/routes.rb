@@ -1,4 +1,8 @@
 SampleApp::Application.routes.draw do
+  resources :courses do
+    get :autocomplete_course_title, :on => :collection
+  end
+  
   resources :users do
     member do
       get :following, :followers
@@ -7,10 +11,14 @@ SampleApp::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  resources :courses #, only: [:show, :create, :destroy, :autocomplete_course_title]
+  resources :reviews, only: [:destroy]
+  resources :votes, only: [:new, :create]
       
   root to: 'static_pages#home'
 
   match '/users/:activation_token/activate', to: 'users#activate' , :as => :activate_user
+  match '/create_review', to: 'inputs#create', via: :post
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

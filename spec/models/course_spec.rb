@@ -31,14 +31,17 @@ describe Course do
     it { should_not be_valid }
   end
 
-  describe "total reviews" do
+  describe "reviews_count works" do
     before do
+      user = FactoryGirl.create(:user)
       s1 = FactoryGirl.create(:schedule, course: course)
-      5.times { FactoryGirl.create(:review, schedule: s1) }
+      5.times { FactoryGirl.create(:review, schedule: s1, user: user) }
       s2 = FactoryGirl.create(:schedule, course: course)
-      3.times { FactoryGirl.create(:review, schedule: s2) }
+      3.times { FactoryGirl.create(:review, schedule: s2, user: user) }
       s3 = FactoryGirl.create(:schedule, course: course)
     end
-    its(:reviews_count) { should == 8 }
+    it { course.schedules.count.should == 3 }
+    it { course.schedules.find_first.reviews.count.should == 5 }
+    it { course.reviews_count.should == 8 }
   end
 end

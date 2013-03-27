@@ -1,6 +1,4 @@
-<a href="<%= user_path(current_user) %>">
-  <%= gravatar_for current_user, size: 52 %>
-</a>
-<h1><%= link_to current_user.name, current_user %></h1>
-<span><%= pluralize(current_user.reviews.count, "review") %></span>
-<span><%= pluralize(current_user.verses.count, "like") %></span>
+<%= gravatar_for @user, size: 52 %>
+<h1><%= @user.name %></h1>
+<span><%= pluralize(@user.reviews.count, "review") %></span>
+<span><%= pluralize(@user.verses.count, "like") %></span>

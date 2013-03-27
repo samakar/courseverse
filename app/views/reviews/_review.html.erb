@@ -3,6 +3,14 @@
   <span class="timestamp">
     <%= number_to_season(review.schedule.semester) %>  <%= review.schedule.year %>
   </span>
+  <span class="timestamp">
+    <%= review.schedule.professor %>
+  </span>
+  <% if not review.rating.nil?%>  <span style="color:orange;font-size:150%; width:300px">
+     <% review.rating.times do%>★<% end %>
+  </span>
+  <% end %>
+
   <span class="content" >
     <table>
       <% review.verses.all.each do |v| %>
@@ -11,7 +19,7 @@
           <td>
             <%= form_tag({controller: 'votes', action: 'create'}, :remote => true, :'data-update-target' => "update-container-" + v.id.to_s, style: 'margin: 0px 0px 2px 0px') do %>
               <%= hidden_field_tag :verse_id, v.id %>
-              <button type="submit" class="btn btn-info btn-mini" id="update-container-<%=v.id%>">
+              <button type="submit" <% if current_user.nil? %>disabled<% end %> class="btn btn-info btn-mini" id="update-container-<%=v.id%>" >
                 <%= v.votes.count %> <i class="icon-thumbs-up icon-white"></i>
               </button>
             <% end %>
@@ -20,6 +28,7 @@
       <% end %>
     </table>
   </span>
+  <small>
   <span class="timestamp">
     Posted <%= time_ago_in_words(review.created_at) %> ago 
     <% if !review.user.nil? %>
@@ -31,4 +40,5 @@
                                      data: { confirm: 'You sure?' },
                                      title: review.schedule.course.title %>
   <% end %>
+  </small>
 </li>

@@ -6,18 +6,22 @@ class InputsController < ApplicationController
   end
 
   def create
-    @course = self.make_course
-    @schedule = self.make_schedule unless @course.is_a? String
-    @review = self.make_review unless @schedule.is_a? String
-    self.make_verse(params[:content_1], 1) unless @review.is_a? String 
-    self.make_verse(params[:content_2], 2) unless @review.is_a? String 
-    self.make_verse(params[:content_3], 3) unless @review.is_a? String 
-    self.make_verse(params[:content_4], 4) unless @review.is_a? String 
-    
-    if !self.errors
+    error_message = catch (:error_message) {
+      @course = self.make_course
+      @professor = self.make_professor
+      @schedule = self.make_schedule
+      @review = self.make_review
+      self.make_verse(params[:content_1], 1)
+      self.make_verse(params[:content_2], 2)
+      self.make_verse(params[:content_3], 3)
+      self.make_verse(params[:content_4], 4)
+      self.check_verses 
+    }
+
+    if error_message.nil?
       flash[:success] = "Thank you! Your review is recieved."
     else
-      flash[:error] = self.errors
+      flash[:error] = error_message
     end
 
     redirect_to root_url
@@ -35,22 +39,38 @@ class InputsController < ApplicationController
     else
       existing_course = Course.where('lower(title) = ?', params[:title].downcase ).first 
       if existing_course.nil?
-        return  "Course title has invalid characters."
+        throw :error_message, "Course title has invalid characters or empty."
       else
         return existing_course
       end
     end
   end
 
+  def make_professor
+    professor = Person.new(lastname: params[:professor].capitalize, role: 2)
+    if professor.save
+      return professor
+    else
+      existing_professor = Person.where('lower(lastname) = ? AND role=2',
+       params[:professor].downcase ).first 
+      if existing_professor.nil?
+        throw :error_message, "Professor name has invalid characters or empty."
+      else
+        return existing_professor
+      end
+    end
+  end
+  
   def make_schedule
-    schedule = @course.schedules.build(year: params[:year], semester: params[:semester])
+    schedule = @course.schedules.build(year: params[:year], 
+      semester: params[:semester], person_id: @professor.id)
     if schedule.save
       return schedule
     else
       existing_schedule = Schedule.where("course_id = ? AND semester = ? AND year = ?", 
         @course.id, params[:semester], params[:year]).first
       if existing_schedule.nil?
-        return  "Schedule is invalid."
+        throw :error_message,   "Schedule is invalid."
       else
         return existing_schedule
       end
@@ -58,16 +78,16 @@ class InputsController < ApplicationController
   end
 
   def make_review
-    review = @schedule.reviews.build(user_id: current_user.id )
+    review = @schedule.reviews.build(user_id: current_user.id, rating: params[:rating] )
     if review.save
       return review
     else
       existing_review = Review.where("schedule_id = ? AND user_id = ? ", 
         @schedule.id, current_user.id ).first
       if existing_review.nil?
-        return  "Review info is invalid."
+        throw :error_message, "You have not rated the course."
       else
-        return "You have already made a review."
+        throw :error_message, "You have already made a review."
       end
     end
   end
@@ -78,31 +98,23 @@ class InputsController < ApplicationController
       if verse.save
         return verse
       else
-    c=1/0
         @review.destroy
         existing_verse = Verse.where("review_id = ? AND topic_id = ? ", 
           @review.id, topic_id )
         if existing_review.nil?
-          @review =  "Review  is longer than 140 characters or invalid : " + content
+          throw :error_message, "Review  is longer than 140 characters or invalid : " + content
         else
-          @review = "You have already made a review."
+          throw :error_message, "You have already made a review."
         end
       end
     end
   end
 
-  def errors
-    error_message = false
-    error_message = @course if @course.is_a? String 
-    error_message = @schedule if @schedule.is_a? String
-    error_message = @review if @review.is_a? String
-    
-    if !error_message and @review.verses.count == 0
+  def check_verses  
+    if @review.verses.count == 0
       @review.destroy
-      error_message = "Review is blank."
+      throw :error_message, "Review is blank."
     end  
-
-    return error_message
   end
 
 end

@@ -5,17 +5,27 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by_email(params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password]) && user.activated?
+
+    error_message = catch (:error_message) {
+      if user.nil?
+        throw :error_message, "Invalid email."
+      elsif !user.authenticate(params[:session][:password])
+        throw :error_message, "Invalid password."
+      elsif !user.activated?
+        UserMailer.activation_email(user).deliver
+        throw :error_message, 'Your account is not activated. Please check your email for activation link.'
+      end           
+    }
+
+    if error_message.nil?
+      flash[:success] = "Welcome back!"
       sign_in user
       redirect_back_or user
-    elsif !user.activated?
-      flash.now[:error] = 'Your account is not activated. Please check your email for activation link.'
-      UserMailer.activation_email(user).deliver
-      render 'new'
     else
-      flash.now[:error] = 'Invalid email/password combination'
+      flash[:error] = error_message
       render 'new'
     end
+
   end
 
   def destroy

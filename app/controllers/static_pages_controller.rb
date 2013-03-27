@@ -1,12 +1,12 @@
 class StaticPagesController < ApplicationController
 
   def home
+    @course_count = Course.count
+    @courses = Course.paginate(page: params[:page], per_page: 10)
+    @course = Course.new
     if signed_in?
-      @course_count = Course.count
-      @courses = Course.paginate(page: params[:page])
-      @micropost  = current_user.microposts.build
-      @course = Course.new
-      @feed_items = current_user.feed.paginate(page: params[:page])
+      #@micropost  = current_user.microposts.build
+      #@feed_items = current_user.feed.paginate(page: params[:page])
     end
   end
   
@@ -17,5 +17,10 @@ class StaticPagesController < ApplicationController
   end
 
   def contact
+  end
+
+  
+  def landing_page
+    render 'landing_page'
   end
 end

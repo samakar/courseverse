@@ -21,8 +21,34 @@ $(function() {
 /* Convenience for forms or links that return HTML from a remote ajax call.
 The returned markup will be inserted into the element id specified.
 */
-$('form[data-update-target]').live('ajax:success', function(evt, data) {
-var target = $(this).data('update-target');
-$('#' + target).html(data);
+  $('form[data-update-target]').live('ajax:success', function(evt, data) {
+    var target = $(this).data('update-target');
+    $('#' + target).html(data);
+  });
 });
+
+/* Form Validation */
+$(document).ready(function () {
+  $("#review_form").validate({
+    rules: {
+      rating: {
+        required: true
+      }
+    },
+    messages: {
+      rating: {
+        required: "The rating is required."
+      },
+    },
+    errorPlacement: function (error, element) {
+      if (element.is('input[type="text"]')) {
+        error.insertAfter(element);
+      } else if (element.is('input[type="radio"]')) {
+        //used span instead of defaul lable because it's rendered as star
+        $("#radio_error").html(error);
+      } else {
+        error.insertAfter(element);
+      }
+    }
+  });
 });

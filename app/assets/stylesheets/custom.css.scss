@@ -250,10 +250,18 @@ aside {
     display: inline-block;
     margin-bottom: 5px;
   }
+
+  #year {
+    width: 20%;
+  }
+  
   input[type="text"]#professor {
     height: 30px;
-    width: 40%;
+    width: 48%;
     margin-bottom: 5px;
   }
+  label { width: 10em; float: left; }
+  label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+   em { font-weight: bold; padding-right: 1em; vertical-align: top; }
 
 }

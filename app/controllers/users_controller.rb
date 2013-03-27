@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user, 
-                only: [:index, :edit, :update, :destroy, :following, :followers]
+                only: [:edit, :update, :destroy, :following, :followers]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
 
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @reviews = @user.reviews.paginate(page: params[:page])
+    @reviews = @user.reviews.paginate(page: params[:page], per_page: 5)
     @microposts = @user.microposts.paginate(page: params[:page])
     @course = Course.new
   end
@@ -20,20 +20,30 @@ class UsersController < ApplicationController
   end
   
   def activate
+
     sign_out
-    @user = User.find(:first, :conditions => {:activation_token => params[:activation_token]}) unless params[:activation_token].blank?
-    case
-      when (!params[:activation_token].blank?) && @user && !@user.activated?
-        @user.activate!
-        sign_in @user
-        flash[:success] = "Account Activated."
-        redirect_to @user
-      when params[:activation_token].blank?
-        flash[:error] = "The activation code was missing. Please follow the URL from your email."
-        redirect_back_or('/')
-      else
-        flash[:error] = "We couldn't find a user with that activation code -- check your email? Or maybe you've already activated -- try signing in."
-        redirect_back_or('/')
+
+    error_message = catch (:error_message) {
+      if params[:activation_token].blank?
+        throw :error_message, "The activation code was missing. Please follow the URL from your email."
+      end
+      
+      @user = User.find(:first, :conditions => {:activation_token => params[:activation_token]})
+
+      if @user.nil?
+        throw :error_message, "We couldn't find a user with that activation code -- check your email? Or maybe you've already activated -- try signing in."
+      elsif !@user.activate!
+        throw :error_message, "Internal error. Contact site admin."
+      end           
+    }
+
+    if error_message.nil?
+      flash[:success] = "Account Activated."
+      sign_in @user
+      redirect_to @user
+    else
+      flash[:error] = error_message
+      redirect_back_or('/')
     end
   end
 

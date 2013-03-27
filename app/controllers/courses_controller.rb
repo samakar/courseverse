@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   autocomplete :course, :title
-  before_filter :signed_in_user
+  before_filter :signed_in_user, only: [:new, :update, :destroy]
   
   def new
     @course = Course.new
@@ -22,7 +22,7 @@ class CoursesController < ApplicationController
   def show
     @user = current_user
     @course = Course.find(params[:id])
-    @reviews = @course.reviews.paginate(page: params[:page])
+    @reviews = @course.reviews.paginate(page: params[:page], per_page: 5)
     @vote = Vote.new
     @top_reviewer = @course.top_reviewer
   end

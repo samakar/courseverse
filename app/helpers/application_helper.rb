@@ -30,9 +30,9 @@ module ApplicationHelper
       when 1
         return "What did you learn?"
       when 2
-        return "How did you study?"
+        return "What did you do for final exam/report?"
       when 3
-        return "How is the work load?"
+        return "How is the course load?"
       when 4
         return "How was the teaching experience?"
       else

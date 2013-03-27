@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322201257) do
+ActiveRecord::Schema.define(:version => 20130326132618) do
 
   create_table "courses", :force => true do |t|
     t.string   "title"
@@ -32,6 +32,19 @@ ActiveRecord::Schema.define(:version => 20130322201257) do
 
   add_index "microposts", ["user_id", "created_at"], :name => "index_microposts_on_user_id_and_created_at"
 
+  create_table "people", :force => true do |t|
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "email"
+    t.integer  "role"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "people", ["role", "lastname"], :name => "index_people_on_role_and_lastname"
+  add_index "people", ["user_id"], :name => "index_people_on_user_id"
+
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
@@ -48,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130322201257) do
     t.integer  "schedule_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "rating"
   end
 
   add_index "reviews", ["schedule_id", "created_at"], :name => "index_reviews_on_schedule_id_and_created_at"
@@ -59,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20130322201257) do
     t.integer  "course_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "person_id"
   end
 
   add_index "schedules", ["course_id"], :name => "index_schedules_on_course_id"

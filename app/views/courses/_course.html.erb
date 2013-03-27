@@ -5,7 +5,7 @@
     <%=pluralize(course.reviews_count, "review")%> for 
     <%=pluralize(course.schedules.count, "session")%>
   </span>
-  <% if current_user.admin? %>
+  <% if current_user_admin? %>
     <%= link_to "delete", course, method: :delete,
                                      data: { confirm: 'You sure?' },
                                      title: course.title %>

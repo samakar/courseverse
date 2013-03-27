@@ -1,5 +1,6 @@
 class VotesController < ApplicationController
-
+  
+  before_filter :signed_in_user
   # GET /votes/new
   # GET /votes/new.xml
   def new

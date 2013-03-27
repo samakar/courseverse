@@ -1,6 +1,12 @@
 SampleApp::Application.routes.draw do
+  get "people/new"
+
   resources :courses do
     get :autocomplete_course_title, :on => :collection
+  end
+  
+  resources :people do
+    get :autocomplete_person_lastname, :on => :collection
   end
   
   resources :users do
@@ -14,7 +20,8 @@ SampleApp::Application.routes.draw do
   resources :courses #, only: [:show, :create, :destroy, :autocomplete_course_title]
   resources :reviews, only: [:destroy]
   resources :votes, only: [:new, :create]
-      
+  resources :people
+        
   root to: 'static_pages#home'
 
   match '/users/:activation_token/activate', to: 'users#activate' , :as => :activate_user
@@ -26,6 +33,7 @@ SampleApp::Application.routes.draw do
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
+  match '/landing_page', to: 'static_pages#landing_page'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

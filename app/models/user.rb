@@ -24,8 +24,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX , message: "is invalid or not a babson.edu email."},
                     uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  validates :password, length: { minimum: 6 }, :unless  => :activate!
+  validates :password_confirmation, presence: true, :unless  => :activate!
   validates :role, presence: true
 
   def feed

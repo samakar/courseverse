@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
     self.activation_token = ''
     self.role = 1 #student by default
     self.admin = true if self.email == 'asamakar1@babson.edu'
-    self.save!
+    self.save
   end
  
   # Returns true if the user has been activated.

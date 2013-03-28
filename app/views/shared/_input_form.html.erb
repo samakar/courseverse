@@ -22,7 +22,7 @@ border-radius: 5px;">
 	    options_for_select([['Spring', 1], ['Summer', 2], ['Fall', 3], ['Winter', 4]],3)) %>
 	<%= select_tag :year, 
 	  options_for_select([['2011', 2011], ['2012', 2012], ['2013', 2013]],2012), class: "year" %>
-	<%= autocomplete_field_tag :professor, nil, autocomplete_person_lastname_people_path, size: 50,  placeholder: "Professor Surname", class: 'required', minlength: 2 %>
+	<%= autocomplete_field_tag :professor, nil, autocomplete_person_lastname_people_path, size: 50,  placeholder: "Prof's Lastname", class: 'required', minlength: 2 %>
 	<%= text_area_tag :content_1, nil, spellcheck: true, maxlength: 140, placeholder: verse_topic(1), title: verse_topic(1) %>
 	<%= text_area_tag :content_2, nil, spellcheck: true, maxlength: 140, placeholder: verse_topic(2), title: verse_topic(2) %>
 	<%= text_area_tag :content_3, nil, spellcheck: true, maxlength: 140, placeholder: verse_topic(3), title: verse_topic(3) %>

@@ -20,7 +20,6 @@ class UsersController < ApplicationController
   end
   
   def activate
-
     sign_out
 
     error_message = catch (:error_message) {
@@ -29,7 +28,7 @@ class UsersController < ApplicationController
       end
       
       @user = User.find(:first, :conditions => {:activation_token => params[:activation_token]})
-
+      p @user
       if @user.nil?
         throw :error_message, "We couldn't find a user with that activation code -- check your email? Or maybe you've already activated -- try signing in."
       elsif !@user.activate!

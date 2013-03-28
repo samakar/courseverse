@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+  validates :role, presence: true
 
   def feed
     Micropost.from_users_followed_by(self)
@@ -45,6 +46,8 @@ class User < ActiveRecord::Base
   
   def activate!
     self.activation_token = ''
+    self.role = 1 #student by default
+    self.admin = true if self.email == 'asamakar1@babson.edu'
     self.save!
   end
  

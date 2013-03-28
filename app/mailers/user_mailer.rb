@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "admin@courseverse.com"
+  default :from => "CourseVerse <admin@courseverse.com>"
  
   def activation_email(user)
     @user = user

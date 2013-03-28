@@ -63,6 +63,20 @@ class User < ActiveRecord::Base
   def student?
     self.role == 1
   end
+  
+  def received_likes
+    # algorithm ignores the improbable fact that
+    # each user may review a course on more than one schedule
+    total_likes = 0
+
+    self.reviews.each do |r|
+      r.verses.each do |v|
+        total_likes += v.likes
+      end
+    end
+
+    return total_likes
+  end 
 
   private
 

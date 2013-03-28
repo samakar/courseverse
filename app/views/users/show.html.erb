@@ -11,7 +11,6 @@
   
   <% if @user.student? %>
     <div class="span8">
-      <%= render 'follow_form' if signed_in? %>
       <% if @user.reviews.any? %>
         <h3> Reviews (<%= @user.reviews.count %>)</h3>
         <ol class="microposts">

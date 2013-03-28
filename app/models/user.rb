@@ -24,9 +24,13 @@ class User < ActiveRecord::Base
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX , message: "is invalid or not a babson.edu email."},
                     uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }, :unless  => :activate!
-  validates :password_confirmation, presence: true, :unless  => :activate!
+  validates :password, length: { minimum: 6 }, :if  => :validate_password?
+  validates :password_confirmation, presence: true, :if  => :validate_password?
   validates :role, presence: true
+
+  def validate_password?
+    self.password.present? || self.password_confirmation.present?
+  end
 
   def feed
     Micropost.from_users_followed_by(self)
@@ -44,7 +48,7 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id).destroy
   end
   
-  def activate!
+  def activate
     self.activation_token = ''
     self.role = 1 #student by default
     self.admin = true if self.email == 'asamakar1@babson.edu'

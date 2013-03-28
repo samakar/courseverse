@@ -31,7 +31,7 @@ class UsersController < ApplicationController
       p @user
       if @user.nil?
         throw :error_message, "We couldn't find a user with that activation code -- check your email? Or maybe you've already activated -- try signing in."
-      elsif !@user.activate!
+      elsif !@user.activate
         throw :error_message, "Internal error. Contact site admin."
       end           
     }
@@ -48,6 +48,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.validate_password?
     if @user.save
       flash[:success] = "Thank you for signing up! Please check your email for activation link."
       UserMailer.activation_email(@user).deliver
@@ -61,6 +62,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user.validate_password?
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated"
       sign_in @user

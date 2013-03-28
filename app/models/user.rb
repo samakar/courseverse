@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }, :if  => :validate_password?
   validates :password_confirmation, presence: true, :if  => :validate_password?
-  validates :role, presence: true
+  
 
   def validate_password?
     self.password.present? || self.password_confirmation.present?
@@ -71,7 +71,6 @@ class User < ActiveRecord::Base
     end
 
     def create_activation_token
-      self.role = 1
       self.activation_token = SecureRandom.urlsafe_base64
     end
 

@@ -71,6 +71,7 @@ class User < ActiveRecord::Base
     end
 
     def create_activation_token
+      self.role = 1
       self.activation_token = SecureRandom.urlsafe_base64
     end
 

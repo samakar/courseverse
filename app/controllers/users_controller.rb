@@ -50,9 +50,8 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.validate_password?
     if @user.save
-      flash[:success] = "Thank you for signing up! Please check your email for activation link."
       UserMailer.activation_email(@user).deliver
-      redirect_to signin_url
+      render 'create'
     else
       render 'new'
     end

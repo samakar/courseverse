@@ -1,9 +1,9 @@
 <div class="field" style="background-color:#eeeefd;padding: 5px;-moz-border-radius: 5px;
 border-radius: 5px;">
-<%= form_tag('/create_review', :method => "POST", id: 'review_form') do%>
+  <%= form_tag('/create_review', :method => "POST", id: 'review_form') do%>
     <span style="color: darkblue; font-weight:bold;display:inline-block;margin: 8px 0 0 0";> My Review </span>
-<span  style="color: darkblue; display:inline-block; float:right">
-<%= field_set_tag nil, class: 'rating' do %>
+  <span  style="color: darkblue; display:inline-block; float:right">
+  <%= field_set_tag nil, class: 'rating' do %>
     <%= radio_button_tag(:rating, 5) %>
     <%= label_tag 'rating_5', 'Rocks!', title: 'Rocks!' %>
     <%= radio_button_tag(:rating, 4) %>
@@ -15,8 +15,8 @@ border-radius: 5px;">
     <%= radio_button_tag(:rating, 1) %>
     <%= label_tag 'rating_1','Sucks big time', title: 'Sucks big time' %>
     <span id='radio_error'></span>
-<% end %>
-</span>
+  <% end %>
+  </span>
 	<%= autocomplete_field_tag :title, nil, autocomplete_course_title_courses_path, size: 50,  placeholder: "Course Title", class: 'required', minlength: 2 %>
 	<%= select_tag(:semester, 
 	    options_for_select([['Spring', 1], ['Summer', 2], ['Fall', 3], ['Winter', 4]],3)) %>
@@ -27,6 +27,7 @@ border-radius: 5px;">
 	<%= text_area_tag :content_2, nil, spellcheck: true, maxlength: 140, placeholder: verse_topic(2), title: verse_topic(2) %>
 	<%= text_area_tag :content_3, nil, spellcheck: true, maxlength: 140, placeholder: verse_topic(3), title: verse_topic(3) %>
 	<%= text_area_tag :content_4, nil, spellcheck: true, maxlength: 140, placeholder: verse_topic(4), title: verse_topic(4) %>
-    <%= submit_tag "Submit Review", class: "btn btn-primary" %>
-<% end %>
+    <%= submit_tag "Submit Review", class: "btn btn-primary", disabled: !signed_in?, title: signed_in? ? nil : 'Please sign in to submit.' %>
+    <%if !signed_in?%><br/><small class='timestamp'>Please sign in to submit.</small><%end%>
+  <% end %>
 </div>

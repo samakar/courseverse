@@ -17,7 +17,7 @@ class Facebook < ActiveRecord::Base
       #CourseVerse
       app_id= '179887045493563'
       app_secret= '64c99d36f972d01f2005be4349da8789'
-      site_url = 'https://courseverse.heroku.com'
+      site_url = 'http://www.courseverse.com'
     end
     return Koala::Facebook::OAuth.new(app_id, app_secret, site_url + '/facebooks/create')
   end

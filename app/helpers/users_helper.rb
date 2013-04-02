@@ -50,4 +50,23 @@ module UsersHelper
       end
     end
   end
+
+  def facebook_link(user)
+    fb = 'https://www.facebook.com/'
+    if user == current_user
+      user.facebook.nil? ? '' : (fb + user.facebook.username)
+    else
+      case user.privacy
+        when 9
+          ''
+        when 6
+          ''
+        when 3
+          current_user_friends?(user) ? (fb + user.facebook.username) : ''
+        else
+          user.facebook.nil? ? '' : (fb + user.facebook.username)
+      end
+    end
+  end
+
 end

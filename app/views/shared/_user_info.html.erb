@@ -1,4 +1,10 @@
-<%= gravatar_for @user %>
+<% if facebook_link(@user).blank? %>
+  <%= gravatar_for @user %>
+<% else %>
+  <a href="<%= facebook_link(@user) %>">
+    <%= gravatar_for @user %>
+  </a>
+<% end %>
 <h1><%= display_name(@user) %></h1>
 <span><%= pluralize(@user.reviews.count, "review") %></span>
 <span><%= pluralize(@user.received_likes, "like") %></span>

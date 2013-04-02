@@ -17,6 +17,8 @@
           <%= render @reviews %>
         </ol>
         <%= will_paginate @reviews %>
+      <% else %>
+       <p> No reviews? Share your thoughts and help your friends select the right course!</p>
       <% end %>
     </div>
   <% else %>

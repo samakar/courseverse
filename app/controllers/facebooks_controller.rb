@@ -9,12 +9,12 @@ class FacebooksController < ApplicationController
   def create
 	if params[:code]
 	  access_token = session[:oauth].get_access_token(params[:code])	  
-	  #begin
+	  begin
 	    Facebook::oauth_current_user(access_token, current_user)
-		#flash[:success] = "Facebook profile created!"
-	  #rescue Exception=>ex
-	    #flash[:error] = "Facebook profile not created:" + ex.message
-	  #end
+		flash[:success] = "Facebook profile created!"
+	  rescue Exception=>ex
+	    flash[:error] = "Facebook profile not created:" + ex.message
+	  end
 	else
 	    flash[:error] = "Facebook profile not created: no reply from Facebook"
 	end

@@ -24,6 +24,8 @@ SampleApp::Application.routes.draw do
         
   root to: 'static_pages#home'
 
+  match '/facebooks/create', to: 'facebooks#create'
+  match '/facebooks/oauth', to: 'facebooks#oauth' , :as => :oauth_facebooks
   match '/users/:activation_token/activate', to: 'users#activate' , :as => :activate_user
   match '/create_review', to: 'inputs#create', via: :post
   match '/signup',  to: 'users#new'

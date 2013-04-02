@@ -35,9 +35,9 @@ class Course < ActiveRecord::Base
       end
     end
     if max_likes==0
-      return {likes: 0, user_id: '-', user_name: '-'}
+      return {likes: 0, user: nil}
     else
-      return {likes: max_likes, id: max_user.id, name: max_user.name}
+      return {likes: max_likes, user: max_user}
     end
   end 
 

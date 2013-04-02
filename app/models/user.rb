@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation, :role
+  attr_accessible :name, :email, :password, :password_confirmation, :role, :privacy
   has_secure_password
+  has_one :facebook, dependent: :destroy
+  has_many :friendships, dependent: :destroy
+  has_many :friends, :through => :friendships
   has_many :reviews, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :verses, :through => :votes
@@ -20,13 +23,15 @@ class User < ActiveRecord::Base
   validates :name,  presence: true, length: { maximum: 50 }
   
   #VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.edu$/i          # old /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@babson.edu$/i
+  #VALID_EMAIL_REGEX = /\A[\w+\-.]+@babson.edu$/i
+  VALID_EMAIL_REGEX = /\A[\w+\-.]/i
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX , message: "is invalid or not a babson.edu email."},
                     uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }, :if  => :validate_password?
   validates :password_confirmation, presence: true, :if  => :validate_password?
   validates :role, presence: true
+  validates :privacy, presence: true
 
   def validate_password?
     self.password.present? || self.password_confirmation.present?
@@ -76,6 +81,14 @@ class User < ActiveRecord::Base
 
     return total_likes
   end 
+  
+  def friend_list
+    if self.friendships.nil?
+      []
+    else
+      self.friendships.pluck(:friend_id)
+    end
+  end
 
   private
 

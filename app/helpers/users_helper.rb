@@ -1,20 +1,53 @@
 module UsersHelper
 
   # Returns the Gravatar (http://gravatar.com/) for the given user.
-  def gravatar_for(user, options = { size: 50 })
+  def gravatar_for(user)
   	if user.nil?
-    	gravatar_id = Digest::MD5::hexdigest('asamakar1@babson.edu')
+    	gravatar_url = 'gravatar.jpg'
   		user_name = 'Guest'
     else
-    	gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
-  		user_name = user.name
+      user_name = display_name(user)
+      gravatar_url = display_image(user)
     end
-    size = options[:size]
-    gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-    image_tag(gravatar_url, alt: user_name, class: "gravatar")
+    image_tag(gravatar_url, alt: user_name, size: "50x50", class: "gravatar")
   end
   
   def current_user_admin?
   	!current_user.nil? && current_user.admin?
+  end
+
+
+  def display_name(user)
+    if user == current_user
+      user.facebook.nil? ? user.name : user.facebook.name
+    else
+      case user.privacy
+        when 9
+          "anonymous user"
+        when 6
+          current_user_friends?(user) ? 'your friend' : 'anonymous user'
+        when 3
+          current_user_friends?(user) ? user.facebook.name : 'anonymous user'
+        else
+          user.facebook.nil? ? user.name : user.facebook.name
+      end
+    end
+  end
+
+  def display_image(user)
+    if user == current_user
+      user.facebook.nil? ? 'gravatar.jpg' : user.facebook.pic_square
+    else
+      case user.privacy
+        when 9
+          'gravatar.jpg'
+        when 6
+          'gravatar.jpg'
+        when 3
+          current_user_friends?(user) ? user.facebook.pic_square : 'gravatar.jpg'
+        else
+          user.facebook.nil? ? 'gravatar.jpg' : user.facebook.pic_square
+      end
+    end
   end
 end

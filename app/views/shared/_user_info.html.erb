@@ -1,4 +1,4 @@
-<%= gravatar_for @user, size: 52 %>
-<h1><%= @user.name %></h1>
+<%= gravatar_for @user %>
+<h1><%= display_name(@user) %></h1>
 <span><%= pluralize(@user.reviews.count, "review") %></span>
 <span><%= pluralize(@user.received_likes, "like") %></span>

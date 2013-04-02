@@ -3,6 +3,23 @@ module SessionsHelper
   def sign_in(user)
     cookies.permanent[:remember_token] = user.remember_token
     self.current_user = user
+    self.current_user_friends = user.friend_list
+  end
+
+  def current_user_friends=(user_friends)
+    @current_user = user_friends
+  end
+
+  def current_user_friends
+    if signed_in?
+      @current_user_friends ||= current_user.friend_list
+    else
+      @current_user_friends = []
+    end
+  end
+
+  def current_user_friends?(user)
+    current_user_friends.include? user.id
   end
 
   def signed_in?
@@ -30,6 +47,7 @@ module SessionsHelper
 
   def sign_out
     current_user = nil
+    current_user_friends = []
     cookies.delete(:remember_token)
   end
 

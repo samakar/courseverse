@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130326132618) do
+ActiveRecord::Schema.define(:version => 20130401182155) do
 
   create_table "courses", :force => true do |t|
     t.string   "title"
@@ -22,6 +22,28 @@ ActiveRecord::Schema.define(:version => 20130326132618) do
   end
 
   add_index "courses", ["college_id", "title"], :name => "index_courses_on_college_id_and_title"
+
+  create_table "facebooks", :id => false, :force => true do |t|
+    t.integer  "uid",        :limit => 8
+    t.string   "first_name"
+    t.string   "name"
+    t.string   "username"
+    t.string   "pic_square"
+    t.string   "sex"
+    t.integer  "user_id"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "facebooks", ["uid"], :name => "index_facebooks_on_uid", :unique => true
+  add_index "facebooks", ["user_id"], :name => "index_facebooks_on_user_id", :unique => true
+
+  create_table "friendships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
@@ -88,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20130326132618) do
     t.boolean  "admin",            :default => false
     t.string   "activation_token"
     t.integer  "role"
+    t.integer  "privacy",          :default => 0
   end
 
   add_index "users", ["activation_token"], :name => "index_users_on_activation_token"

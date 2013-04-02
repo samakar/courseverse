@@ -32,7 +32,7 @@
   <span class="timestamp">
     Posted <%= time_ago_in_words(review.created_at) %> ago 
     <% if !review.user.nil? %>
-      by <%= link_to review.user.name, review.user %>.
+      by <%= link_to display_name(review.user), review.user %>.
     <% end %>
   </span>
   <% if current_user?(review.user) %>

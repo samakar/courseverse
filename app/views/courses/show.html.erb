@@ -13,7 +13,7 @@
       <% if @course.reviews.count>0 %>
         <h3><%= @course.title %> <span class="timestamp"> - <%= pluralize( @course.reviews.count,      "review") %> </span></h3>
         <% if @top_reviewer[:likes] > 0 %>
-          <small>Top Reviewer: <%= @top_reviewer[:name] %> - <%= @top_reviewer[:likes] %> likes</small>
+          <small>Top Reviewer: <%= display_name(@top_reviewer[:user]) %> - <%= @top_reviewer[:likes] %> likes</small>
         <% end %>
         <ol class="microposts">
           <%= render @reviews %>

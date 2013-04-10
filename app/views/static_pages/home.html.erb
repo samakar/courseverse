@@ -12,7 +12,8 @@
       <h3>Babson College Course List</h3>
       <p>List Is Empty.</p>
     <% else %>
-      <h3>Babson College <span class="timestamp"> - <%= @course_count %> courses </span></h3>
+      <h3><%= image_tag('Babson_Logo.gif', alt: 'Babson_College_Logo', size: "30x30") %>
+Babson College <span class="timestamp"> - <%= @course_count %> courses </span></h3>
       <ol class="microposts">
         <%= render @courses %>
       </ol>

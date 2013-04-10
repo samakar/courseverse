@@ -36,7 +36,9 @@ SampleApp::Application.routes.draw do
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
   match '/landing_page', to: 'static_pages#landing_page'
-
+  match '/auth/google_oauth2/callback', to:'users#google_oauth2' # dev env
+  match '/oauth2callback', to:'users#google_oauth2' # production env
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

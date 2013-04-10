@@ -9,6 +9,7 @@ gem 'bootstrap-will_paginate', '0.0.6'
 gem 'jquery-rails', '2.0.2'
 gem 'rails3-jquery-autocomplete'
 gem 'koala'
+gem 'omniauth-google-oauth2'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

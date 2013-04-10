@@ -4,28 +4,34 @@
   <div class="span6 offset3">
     <h3>Join CourseVerse Today.</h3>
     <br/>
-    <%= form_for(@user) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+    <div class='leftContent'>
+      <%= form_for(@user) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <%= f.hidden_field :name, value: 'make from email' %>
 
-      <%= f.label :email %>
-      <%= f.text_field :email %>
+        <%= f.label :email %>
+        <%= f.text_field :email %>
 
-      <%= f.label :password %>
-      <%= f.password_field :password %>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation %>
-      <%= f.hidden_field :role, value: 1 %>
+        <%= f.label :password_confirmation, "Confirmation" %>
+        <%= f.password_field :password_confirmation %>
+        <%= f.hidden_field :role, value: 1 %>
 
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-    <% end %>
-
+        <%= f.submit "Create my account", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <div class='rightContent'>
+      <%= form_tag('/auth/google_oauth2') do%>
+        <%= submit_tag "Sign up with Google", class: "btn btn-large btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="span6 offset3">
     <p>Current user? <%= link_to "Sign in now!", signin_path %></p>
     <p><small> 
-      You can use an anonymous name and change it later.<br/> 
-      Your email will remain confidential.
+      You can use an anonymous name later. Your email will remain confidential.
     </small></p>
   </div>
 </div>

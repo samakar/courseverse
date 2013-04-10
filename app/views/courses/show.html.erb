@@ -11,7 +11,10 @@
   
     <div class="span8">
       <% if @course.reviews.count>0 %>
-        <h3><%= @course.title %> <span class="timestamp"> - <%= pluralize( @course.reviews.count,      "review") %> </span></h3>
+        <h3>
+          <%= image_tag('Babson_Logo.gif', alt: 'Babson_College_Logo', size: "30x30") %>
+          <%= @course.title %> <span class="timestamp"> - <%= pluralize( @course.reviews.count,      "review") %> </span>
+        </h3>
         <% if @top_reviewer[:likes] > 0 %>
           <small>Top Reviewer: <%= display_name(@top_reviewer[:user]) %> - <%= @top_reviewer[:likes] %> likes</small>
         <% end %>

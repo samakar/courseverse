@@ -52,3 +52,10 @@ $(document).ready(function () {
     }
   });
 });
+
+$(document).ready(function(){ 
+  $("#content_1").charCount();
+  $("#content_2").charCount();
+  $("#content_3").charCount();
+  $("#content_4").charCount();
+});

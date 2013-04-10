@@ -23,10 +23,12 @@ border-radius: 5px;">
 	<%= select_tag :year, 
 	  options_for_select([['2011', 2011], ['2012', 2012], ['2013', 2013]],2012), class: "year" %>
 	<%= autocomplete_field_tag :professor, nil, autocomplete_person_lastname_people_path, size: 50,  placeholder: "Prof's Lastname", class: 'required' %>
-	<%= text_area_tag :content_1, nil, spellcheck: true, minlength: 3, maxlength: 280, placeholder: verse_topic(1), title: verse_topic(1) %>
-	<%= text_area_tag :content_2, nil, spellcheck: true, minlength: 3, maxlength: 280, placeholder: verse_topic(2), title: verse_topic(2) %>
-	<%= text_area_tag :content_3, nil, spellcheck: true, minlength: 3, maxlength: 280, placeholder: verse_topic(3), title: verse_topic(3) %>
-	<%= text_area_tag :content_4, nil, spellcheck: true, minlength: 3, maxlength: 280, placeholder: verse_topic(4), title: verse_topic(4) %>
+  <%= text_area_tag :content_1, nil, spellcheck: true, minlength: 3, maxlength: 300, placeholder: verse_topic(1), title: verse_topic(1) %>
+
+	<%= text_area_tag :content_2, nil, spellcheck: true, minlength: 3, maxlength: 300, placeholder: verse_topic(2), title: verse_topic(2) %>
+	<%= text_area_tag :content_3, nil, spellcheck: true, minlength: 3, maxlength: 300, placeholder: verse_topic(3), title: verse_topic(3) %>
+	<%= text_area_tag :content_4, nil, spellcheck: true, minlength: 3, maxlength: 300, placeholder: verse_topic(4), title: verse_topic(4) %>
+  <br>
     <%= submit_tag "Submit Review", class: "btn btn-primary", disabled: !signed_in?, title: signed_in? ? nil : 'Please sign in to submit.' %>
     <%if !signed_in?%><br/><small class='timestamp'>Please sign in to submit.</small><%end%>
   <% end %>

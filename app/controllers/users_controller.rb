@@ -19,6 +19,30 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
+  def google_oauth2
+    auth = request.env["omniauth.auth"]
+    email = auth[:info][:email].downcase
+    user = User.find_by_email(email)
+
+    if user.nil?
+      user = User.new(email: email, name: auth[:info][:name],
+       role: 1, password: SecureRandom.urlsafe_base64(8) )
+      if user.save
+        flash[:success] = "Welcome #{auth[:info][:first_name]}!"
+        #send password: UserMailer.activation_email(user).deliver
+        sign_in user
+        redirect_to user    
+      else
+        flash[:error] = "Sign up failed. Please use your Babson email account."
+        render 'new'
+      end
+    else
+      flash[:success] = "Welcome back #{auth[:info][:first_name]}!"
+      sign_in user
+      redirect_to user    
+    end 
+  end
+
   def activate
     sign_out
 
@@ -28,7 +52,6 @@ class UsersController < ApplicationController
       end
       
       @user = User.find(:first, :conditions => {:activation_token => params[:activation_token]})
-      p @user
       if @user.nil?
         throw :error_message, "We couldn't find a user with that activation code -- check your email? Or maybe you've already activated -- try signing in."
       elsif !@user.activate
@@ -48,12 +71,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.make_name
     @user.validate_password?
     if @user.save
       UserMailer.activation_email(@user).deliver
       render 'create'
     else
-      render 'new'
+     render 'new'
     end
   end
 

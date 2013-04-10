@@ -207,6 +207,10 @@ input {
   @extend .error;
  }
 
+.desc {
+  font-size:10px;  
+}
+
  /* users index */
 
 .users {
@@ -266,6 +270,18 @@ aside {
   }
   label { width: 10em; float: left; }
   label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
-   em { font-weight: bold; padding-right: 1em; vertical-align: top; }
+  em { font-weight: bold; padding-right: 1em; vertical-align: top; }
 
+}
+
+div.leftContent {
+  float: left;
+  width: 230px;
+  border-right: 1px solid gray;
+  padding: 10px;
+}
+
+div.rightContent {
+  float: right;
+  padding: 10px;
 }

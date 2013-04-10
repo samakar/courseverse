@@ -1,0 +1,317 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"colle",
+				"college_id"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/home/ubuntu/w3.rb",
+			"settings":
+			{
+				"buffer_size": 941,
+				"line_ending": "Unix",
+				"name": "file = File.open(\"en_US.dec\")"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/ubuntu/w2.rb",
+		"/home/ubuntu/w.rb",
+		"/home/ubuntu/w4.rb",
+		"/home/ubuntu/sample_app/app/views/static_pages/landing_page.html.erb",
+		"/home/ubuntu/sample_app/config/routes.rb",
+		"/home/ubuntu/sample_app/app/views/users/show.html.erb",
+		"/home/ubuntu/sample_app/app/views/shared/_current_user_info.html.erb",
+		"/home/ubuntu/sample_app/app/helpers/users_helper.rb",
+		"/home/ubuntu/sample_app/app/views/shared/_user_info.html.erb",
+		"/home/ubuntu/sample_app/app/views/static_pages/about.html.erb",
+		"/home/ubuntu/sample_app/app/views/shared/_input_form.html.erb",
+		"/home/ubuntu/sample_app/app/views/users/edit.html.erb",
+		"/home/ubuntu/sample_app/app/models/user.rb",
+		"/home/ubuntu/sample_app/app/models/facebook.rb",
+		"/home/ubuntu/sample_app/app/mailers/user_mailer.rb",
+		"/home/ubuntu/sample_app/log/development.log",
+		"/home/ubuntu/sample_app/app/models/relationship.rb",
+		"/home/ubuntu/sample_app/app/controllers/facebooks_controller.rb",
+		"/home/ubuntu/sample_app/app/models/friendship.rb",
+		"/home/ubuntu/sample_app/app/controllers/users_controller.rb",
+		"/home/ubuntu/sample_app/app/helpers/sessions_helper.rb",
+		"/home/ubuntu/sample_app/app/views/reviews/_review.html.erb",
+		"/home/ubuntu/sample_app/app/views/courses/show.html.erb",
+		"/home/ubuntu/sample_app/app/models/course.rb",
+		"/home/ubuntu/sample_app/app/views/users/_user.html.erb",
+		"/home/ubuntu/sample_app/app/views/layouts/_header.html.erb",
+		"/home/ubuntu/sample_app/app/assets/stylesheets/custom.css.scss",
+		"/home/ubuntu/sample_app/config/boot.rb",
+		"/home/ubuntu/sample_app/config/application.rb",
+		"/home/ubuntu/sample_app/Gemfile",
+		"/home/ubuntu/sample_app/app/controllers/inputs_controller.rb",
+		"/home/ubuntu/sample_app/app/controllers/relationships_controller.rb",
+		"/home/ubuntu/sample_app/db/schema.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130401182155_add_privacy_to_user.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130331203059_create_facebooks.rb",
+		"/home/ubuntu/sample_app/app/views/users/new.html.erb",
+		"/home/ubuntu/sample_app/app/controllers/courses_controller.rb",
+		"/home/ubuntu/sample_app/app/views/static_pages/home.html.erb",
+		"/home/ubuntu/sample_app/app/assets/javascripts/application.js",
+		"/home/ubuntu/sample_app/app/controllers/static_pages_controller.rb",
+		"/home/ubuntu/sample_app/app/views/static_pages/help.html.erb",
+		"/home/ubuntu/sample_app/app/helpers/application_helper.rb",
+		"/home/ubuntu/sample_app/app/views/users/create.html.erb",
+		"/home/ubuntu/sample_app/app/views/user_mailer/activation_email.html.erb",
+		"/home/ubuntu/sample_app/app/models/verse.rb",
+		"/home/ubuntu/sample_app/config/environments/production.rb",
+		"/home/ubuntu/sample_app/app/controllers/sessions_controller.rb",
+		"/home/ubuntu/sample_app/app/views/sessions/new.html.erb",
+		"/home/ubuntu/sample_app/config/environment.rb",
+		"/home/ubuntu/sample_app/app/views/layouts/_footer.html.erb",
+		"/home/ubuntu/sample_app/app/helpers/static_pages_helper.rb",
+		"/home/ubuntu/sample_app/app/helpers/courses_helper.rb",
+		"/home/ubuntu/sample_app/app/assets/javascripts/jquery.validate.js",
+		"/home/ubuntu/sample_app/app/controllers/votes_controller.rb",
+		"/home/ubuntu/sample_app/app/controllers/reviews_controller.rb",
+		"/home/ubuntu/sample_app/app/views/courses/_course.html.erb",
+		"/home/ubuntu/sample_app/app/views/users/index.html.erb",
+		"/home/ubuntu/sample_app/app/models/review.rb",
+		"/home/ubuntu/sample_app/README.md",
+		"/home/ubuntu/sample_app/app/models/person.rb",
+		"/home/ubuntu/sample_app/app/controllers/people_controller.rb",
+		"/home/ubuntu/sample_app/app/models/schedule.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130326132618_add_rating_to_reviews.rb",
+		"/home/ubuntu/sample_app/app/assets/stylesheets/star_rating.css",
+		"/home/ubuntu/sample_app/app/assets/javascripts/jquery.rating.js",
+		"/home/ubuntu/sample_app/app/assets/javascripts/jquery.MetaData.js",
+		"/home/ubuntu/sample_app/app/assets/images/star.gif",
+		"/home/ubuntu/sample_app/db/migrate/20130325195420_add_person_id_to_schedules.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130325192929_create_people.rb",
+		"/home/ubuntu/sample_app/app/views/layouts/application.html.erb",
+		"/home/ubuntu/sample_app/app/assets/stylesheets/autocomplete.css.scss",
+		"/home/ubuntu/sample_app/app/assets/stylesheets/application.css",
+		"/home/ubuntu/sample_app/app/assets/javascripts/autocomplete.css.scss",
+		"/home/ubuntu/sample_app/app/assets/javascripts/autocomplite.css.scss",
+		"/home/ubuntu/sample_app/app/models/vote.rb",
+		"/home/ubuntu/sample_app/app/views/votes/_create.html.erb",
+		"/home/ubuntu/sample_app/spec/models/user_spec.rb",
+		"/home/ubuntu/sample_app/spec/controllers/relationships_controller_spec.rb",
+		"/home/ubuntu/sample_app/spec/models/verse_spec.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130322201257_create_votes.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130322200204_drop_users_verses_join_table.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130322160945_create_users_verses_join_table.rb",
+		"/home/ubuntu/sample_app/spec/requests/user_pages_spec.rb",
+		"/home/ubuntu/sample_app/spec/factories.rb",
+		"/home/ubuntu/sample_app/spec/requests/static_pages_spec.rb",
+		"/home/ubuntu/sample_app/spec/requests/course_pages_spec.rb",
+		"/home/ubuntu/sample_app/spec/models/course_spec.rb",
+		"/home/ubuntu/sample_app/spec/models/schedule_spec.rb",
+		"/home/ubuntu/sample_app/app/views/shared/_error_messages.html.erb",
+		"/home/ubuntu/sample_app/spec/models/review_spec.rb",
+		"/home/ubuntu/sample_app/app/views/courses/create.html.erb",
+		"/home/ubuntu/sample_app/app/helpers/form_helper.rb",
+		"/home/ubuntu/sample_app/app/assets/stylesheets/courses.css.scss",
+		"/home/ubuntu/sample_app/app/views/shared/_micropost_form.html.erb",
+		"/home/ubuntu/sample_app/spec/models/micropost_spec.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130318151334_remove_content_from_reviews.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130318151153_remove_topic_id_from_reviews.rb",
+		"/home/ubuntu/sample_app/app/views/shared/_feed.html.erb",
+		"/home/ubuntu/sample_app/app/views/shared/_stats.html.erb",
+		"/home/ubuntu/sample_app/app/models/micropost.rb",
+		"/home/ubuntu/sample_app/spec/models/relationship_spec.rb",
+		"/home/ubuntu/sample_app/app/controllers/microposts_controller.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130315161826_create_schedules.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130315161405_create_courses.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130315160325_create_reviews.rb",
+		"/home/ubuntu/sample_app/db/migrate/20130315154147_add_role_to_users.rb",
+		"/home/ubuntu/sample_app/db/migrate/20120308034454_add_password_digest_to_users.rb",
+		"/home/ubuntu/sample_app/spec/spec_helper.rb",
+		"/home/ubuntu/sample_app/spec/helpers/application_helper_spec.rb",
+		"/home/ubuntu/sample_app/spec/requests/authentication_pages_spec.rb",
+		"/home/ubuntu/sample_app/spec/mailers/user_mailer_spec.rb",
+		"/home/ubuntu/sample_app/config/environments/test.rb",
+		"/home/ubuntu/sample_app/config/environments/development.rb",
+		"/home/ubuntu/sample_app/config/initializers/wrap_parameters.rb",
+		"/home/ubuntu/sample_app/config/initializers/session_store.rb",
+		"/home/ubuntu/sample_app/config/initializers/secret_token.rb",
+		"/home/ubuntu/sample_app/config/initializers/mime_types.rb",
+		"/home/ubuntu/sample_app/config/initializers/inflections.rb",
+		"/home/ubuntu/sample_app/config/initializers/backtrace_silencers.rb",
+		"/home/ubuntu/sample_app/config/locales/en.yml",
+		"/home/ubuntu/sample_app/app/views/a.html.erb",
+		"/home/ubuntu/sample_app/app/views/user_mailer/ activation_email.html.erb",
+		"/home/ubuntu/sample_app/db/migrate/20130308173146_add_activation_token_to_users.rb",
+		"/home/ubuntu/sample_app/.rspec",
+		"/home/ubuntu/sample_app/app/views/layouts/_shim.html.erb",
+		"/home/ubuntu/sample_app/app/views/static_pages/contact.html.erb",
+		"/home/ubuntu/sample_app/app/views/microposts/_micropost.html.erb",
+		"/home/ubuntu/sample_app/db/migrate/20130301153125_add_password_digest_to_users.rb"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"facebooks",
+			"rake",
+			"radio",
+			"textarea",
+			"end",
+			"\n      ",
+			"user",
+			"'\n",
+			",:",
+			"com"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/home/ubuntu/w3.rb",
+					"settings":
+					{
+						"buffer_size": 941,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								329,
+								329
+							]
+						],
+						"settings":
+						{
+							"auto_name": "file = File.open(\"en_US.dec\")",
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 408.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 27.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 223.0,
+	"status_bar_visible": true
+}

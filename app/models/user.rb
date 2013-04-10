@@ -36,22 +36,6 @@ class User < ActiveRecord::Base
   def validate_password?
     self.password.present? || self.password_confirmation.present?
   end
-
-  def feed
-    Micropost.from_users_followed_by(self)
-  end
-
-  def following?(other_user)
-    relationships.find_by_followed_id(other_user.id)
-  end
-
-  def follow!(other_user)
-    relationships.create!(followed_id: other_user.id)
-  end
-
-  def unfollow!(other_user)
-    relationships.find_by_followed_id(other_user.id).destroy
-  end
   
   def activate
     self.activation_token = ''
@@ -88,6 +72,45 @@ class User < ActiveRecord::Base
     else
       self.friendships.pluck(:friend_id)
     end
+  end
+
+  def make_name
+    email_name = self.email.split("@")[0]
+    i = 0
+    name = ''
+    email_name.each_char do |l|   
+      if l =~ /^[0-9]+$/
+        break
+      else
+        case i
+        when 0
+          name = l.upcase + ". "
+        when 1
+          name += l.upcase
+        else
+          name += l
+        end
+        i +=1
+      end
+    end
+    self.name = name
+  end
+
+  # Unused methods in app
+  def feed
+    Micropost.from_users_followed_by(self)
+  end
+
+  def following?(other_user)
+    relationships.find_by_followed_id(other_user.id)
+  end
+
+  def follow!(other_user)
+    relationships.create!(followed_id: other_user.id)
+  end
+
+  def unfollow!(other_user)
+    relationships.find_by_followed_id(other_user.id).destroy
   end
 
   private
